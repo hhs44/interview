@@ -9,7 +9,7 @@
 # 此时他们就进入了死锁状态。下面是一
 # 个简单的使用死锁避免机制解决“哲学家就餐问题”的实现：
 import threading
-
+import acquire
 
 # The philosopher thread
 def philosopher(left, right):
