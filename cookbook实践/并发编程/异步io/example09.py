@@ -49,7 +49,7 @@ async def main():
 # 2、多个协程任务的运行
 if __name__ == '__main__':
     print("In main thread", threading.current_thread())
-    t1 = threading.Thread(target=ping,args=("www.baidu.com",))
+    t1 = threading.Thread8(target=ping,args=("www.baidu.com",))
     t2 = threading.Thread(target=ping,args=("www.yangyanxing.com",))
     t3 = threading.Thread(target=ping,args=("www.qq.com",))
     t1.start()

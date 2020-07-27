@@ -20,7 +20,7 @@ async def testb(x):
 
 async def main():
     start = time.time()
-    done, pending = await asyncio.wait([testa(1), testb(2)])
+    done, pending = await asyncio.wait([testa(1), testb(2)], return_when=asyncio.tasks.FIRST_EXCEPTION)
     print(list(done))
     print(list(pending))
     print(list(done)[0].result())
