@@ -1,0 +1,54 @@
+1. 每一句话都可能是一个坑，一定要提前做功课填坑
+    例如：有良好的编程习惯，那么你说的良好的编程习惯指的是什么？
+    pep 8 / google / pylint / flake8
+    例如：熟悉面向对象的设计原则和设计模式，那么说出你在项目中用过的设计模式？
+    设计模式这四个字不应该轻易出现，除非自己能够驾驭
+
+2. MVC不是设计模式，是架构模式！！！
+    说明：设计模式和架构模式不是一个层面的东西，设计模式是GoF在95年总结的23种场景，
+    解决的是如何设计类之间关系，从而达到高内聚低耦合，架构模式是更为宏观的层面的东西，
+    解决的是功能模块（数据和数据显示）之间如何解耦合的问题。
+
+3. Python并发编程的三种方式是：多线程、多进程、异步编程（异步I/O）。
+    协程是实现异步编程的手段，为程序提供了协作式并发的可能，协程要放在事件循环中运行。
+    可以使用uvloop替换默认的事件循环
+
+4. 注意拼写！！！注意拼写！！！注意拼写！！！
+    Python / Django / djangorestframework / Flask / SQLAlchemy / Flask-RESTful
+    HTML / CSS / JavaScript / Ajax / jQuery / Vue.js / React / Element / Mint
+    Linux / Redis / MongoDB / RabbitMQ / Nginx / MySQL / Oracle / SQL / 
+    PyCharm / Git / Sourcetree / XMind / PowerDesigner / 
+
+5. 你真的熟悉TCP吗？
+    - TCP/IP模型 - Internet - 事实标准 - 四层模型 - 协议栈
+        应用层 - HTTP / SMTP / FTP / QQ - 应用相关的协议
+        传输层 - TCP / UDP - 端到端传输
+        网络层 - IP - 寻址和路由
+        链路层 - ARP/ RARP （IP地址和MAC地址转换）- 分帧+校验
+    - TCP解决端到端可靠传输，应用层就可以直接使用这种可靠传输服务
+        ~ 可靠传输（不传错、不传丢）- 校验和 / 确认重传 / 超时重传
+        ~ 流量控制 - 滑动窗口
+        ~ 拥塞控制 - 滑动窗口 / RTT / Karn / 定时器补偿
+
+6. 你真的能熟练的使用Git吗？
+    ~ Git标准使用流程（分支管理策略）--->  git-flow / github-flow（PR）
+    ~ 合并代码：git merge / git rebase
+    ~ 下载代码：git pull / git fetch
+    ~ git stash / git cherry-pick
+
+7. 如果问你经常使用的Linux命令有哪些该怎么回答？
+    绝对不能回答：ls / cd / pwd / ... ---> 潜台词：我是小白！！！
+    运维相关命令：
+        ~ 网络管理
+        ~ 进程管理
+        ~ 资源管理
+
+8. 给简历做减肥操作 ---> 把无法把控不能驾驭的讲不清楚的技能点全部砍掉！！！
+
+9. 项目经验部分请尽量按照STAR法则进行书写！！！
+    S - Situation - 场景 - 使用技术的业务背景
+    T - Task - 任务 - 在刚才的业务背景下你需要完成什么样的任务
+    A - Action - 行为 - 你具体怎么做的，技术选型，困难如何解决
+    R - Result - 结果 - 最后达到了什么样的效果（省略或简单交代）
+
+10. 原则：陈述（自己的工作经历和专业技能），不美化（让面试官自己评判）！！！

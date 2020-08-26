@@ -1,0 +1,86 @@
+~ 面试常见套路
+    1. 从一个简单的问题入手 ---> 继续挖掘 ---> 深入挖掘 ---> 找到面试者技术的边界
+        ~ 在准备面试的时候既要有技术深度，也有有适当的广度
+    2. 给一个场景要求现场解决问题 ---> 记录 + 思考 ---> 对应之前项目遇到的场景
+        ~ 简历上的每个技能点都动手做一遍，哪怕是一个最小化的demo
+
+~ 面试黑话
+    - 流量指标 ---> （独立）IP / PV（Page View）/ UV（Unique Visitor）
+        ~ https://alexa.chinaz.com
+        ~ IP ---> access.log 
+        切割日志文件 ---> _$(data +%F) ---> 定时任务 at / crontab -e
+        查看独立IP：tail -100000 access.log | awk '{print $1}' | sort | uniq | wc -l
+        查看频率最高IP地址：tail -100000 access.log | awk '{print $1}' | sort | uniq -c | sort -nr | head -1 | awk '{print $2}'
+        ~ PV ---> JavaScript植入代码（通过异步请求告诉服务器PV加1）
+             ---> 交给三方平台或者三方工具（中国站长、百度统计……）
+        ~ UV ---> 日活用户（基于cookie/token统计） ---> 公司运营更关注这个数据
+    - 技术面试官黑话
+        ~ 你还有什么问题要问？
+        ~ 回去等我们的通知 / 今天HR不在
+        ~ 我们需要有很强的责任心的员工 / 我们不提倡加班 / 我们不强制加班
+        ~ 我说的是另一个问题 / 你说的跟我说的一个意思 / 我们讨论的是两件事情
+    - 人力黑话
+        ~ 说说你的缺点
+        ~ 你平时都看什么书
+        ~ 你做过最有成就感的事情是什么
+        ~ 五年内的职业规划
+        ~ 你对加班的看法
+        ~ 是否能够接受内部岗位调换
+    
+~ 如果日均PV达到千万级，网站如何架构
+    ~ 对请求的处理尽可能靠前
+
+~ Nginx相关问题
+    ~ 源代码构建安装：
+        - wget http://nginx.org/download/nginx-1.17.9.tar.gz
+        - tar -zxf nginx-1.17.9.tar.gz
+        - cd nginx-1.17.9
+        - yum install -y gcc-c++
+        - yum install -y pcre-devel openssl-devel
+        - ./configure --prefix=/usr/local/nginx --user=nginx --group=nginx \
+        --with-http_stub_status_module --with-http_ssl_module
+        - make && make install
+        - ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
+        - nginx -V ===> 查看版本信息
+        - nginx -t ===> 测试配置文件
+        - nginx ===> 启动Nginx
+        - nginx -s reload ===> 重启Nginx
+        - nginx -s stop ===> 停止Nginx
+    ~ Nginx的配置文件：
+        - user nginx;   ===> 不能使用root
+            ~ chown -R nginx foo
+        - worker_processes 2;   ===> 建议与CPU数量相同
+        - worker_cpu_affinity 0001 0100;    ===> 指定在哪些CPU上运行
+        - events:
+            ~ use epoll;    ===> 多路I/O复用的方式（回调式的epoll优于轮询式的select，Nginx性能优于Apache的原因）
+            ~ worker_connections 1024;
+        - http
+            ~ access_log    logs/access.log;
+            ~ send_file     on;
+            ~ tcp_nopush    on;
+            ~ tcp_nodelay   on;
+            ~ keepalive_timeout   60;
+            ~ server ===> 配置虚拟主机
+                1. 基于域名配置多个主机
+                2. 基于端口配置多个主机
+                3. 基于IP地址配置多个主机
+                - listen        80;
+                - server_name   cart.jackfrued.top;
+                - location / {...}
+                - location /static/ {...}
+    ~ Nginx安全相关问题：
+        - DDoS ---> Distributed Deny of Service
+            ~ PING to death
+            ~ TCP flood
+        提示：没有什么特别有效的应对DDoS的方法，只能通过购买防DDoS服务挡子弹
+        - server_tokens     off;    ===> 不显示服务器版本
+        - limit_req_zone    
+        - limit_conn_zone   ---> limit_conn
+        - valid_referers
+    ~ 负载均衡
+        性能瓶颈 ---> 垂直扩展（提升单节点处理能力）和水平扩展（增加新的服务器节点）
+        集群（cluster） ---> 单机变多机
+            ~ 并发性能  ---> 负载均衡集群
+            ~ 高可用    ---> 高可用集群
+                       ---> 高性能计算集群
+        请求到来的时候路由到哪台服务器 ---> 反向代理+负载均衡
